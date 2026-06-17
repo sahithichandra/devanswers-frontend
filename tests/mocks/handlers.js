@@ -7,7 +7,7 @@ import {
   mockAuthResponse,
 } from './mockData';
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:8001/api';
 
 export const handlers = [
   // ── Auth endpoints ────────────────────────────────────────────────────────
@@ -160,6 +160,40 @@ export const handlers = [
         totalVotesReceived: 12,
         reputation: 75,
       },
+    });
+  }),
+
+  // ── AI endpoints ──────────────────────────────────────────────────────────
+  http.post(`${BASE_URL}/ai/improve-question`, async ({ request }) => {
+    const authHeader = request.headers.get('Authorization');
+    const token = authHeader && authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : null;
+    if (!token || token === 'null' || token === 'undefined') {
+      return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+    const body = await request.json();
+    return HttpResponse.json({
+      success: true,
+      data: {
+        title: `Improved: ${body.title}`,
+        description: `Improved: ${body.description}`,
+        tags: body.tags,
+      },
+    });
+  }),
+
+  http.post(`${BASE_URL}/ai/summarize-answers`, async ({ request }) => {
+    const authHeader = request.headers.get('Authorization');
+    const token = authHeader && authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : null;
+    if (!token || token === 'null' || token === 'undefined') {
+      return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+    return HttpResponse.json({
+      success: true,
+      data: { summary: 'This is a mock summary of the answers.' },
     });
   }),
 ];

@@ -39,9 +39,9 @@ describe('Navbar Component', () => {
     expect(screen.getByText('Profile')).toBeInTheDocument();
   });
 
-  it('renders the sidebar footer text', () => {
+  it('does not render a sidebar footer', () => {
     renderNavbar();
-    expect(screen.getByText(/© 2026 DevAnswers/i)).toBeInTheDocument();
+    expect(screen.queryByText(/© 2026 DevAnswers/i)).not.toBeInTheDocument();
   });
 
   it('highlights Home link when on home page', () => {
