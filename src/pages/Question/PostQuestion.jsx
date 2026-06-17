@@ -36,13 +36,22 @@ const PostQuestion = () => {
   };
 
   const handleImprove = async () => {
+    if (!userInfo?.token) {
+      alert('Session expired. Please log out and log back in.');
+      return;
+    }
     setIsImproving(true);
     try {
       const improved = await improveQuestion({ title, description, tags }, userInfo.token);
       setSuggestions(improved);
     } catch (error) {
-      console.error('Error improving question:', error);
-      alert('Failed to improve question. Please try again.');
+      const status = error?.response?.status;
+      const detail = error?.response?.data?.message || error?.message || 'Unknown error';
+      if (status === 401) {
+        alert('Session expired. Please log out and log back in, then try again.');
+      } else {
+        alert(`Failed to improve question: ${detail}`);
+      }
     } finally {
       setIsImproving(false);
     }
