@@ -1,6 +1,6 @@
-import { Button } from 'react-bootstrap';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { Button } from "react-bootstrap";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 /**
  * Shared vote buttons component used by QuestionCard, QuestionContent and AnswerList.
@@ -10,13 +10,13 @@ const VoteButtons = ({
   voteCount,
   authorId,
   onVote,
-  variant = 'outline-secondary',
-  upClassName = '',
-  downClassName = '',
-  countClassName = '',
-  upIconClassName = '',
-  downIconClassName = '',
-  itemType = 'post',
+  variant = "outline-secondary",
+  upClassName = "",
+  downClassName = "",
+  countClassName = "",
+  upIconClassName = "",
+  downIconClassName = "",
+  itemType = "post",
 }) => {
   const { userInfo } = useSelector((state) => state.user);
   const isAuthenticated = !!userInfo;
@@ -40,11 +40,19 @@ const VoteButtons = ({
 
   return (
     <>
-      <Button variant={variant} onClick={(e) => handleVote('upvote', e)} className={upClassName}>
+      <Button
+        variant={variant}
+        onClick={(e) => handleVote("upvote", e)}
+        className={upClassName}
+      >
         <FaArrowUp className={upIconClassName} />
       </Button>
       <span className={countClassName}>{voteCount ?? 0}</span>
-      <Button variant={variant} onClick={(e) => handleVote('downvote', e)} className={downClassName}>
+      <Button
+        variant={variant}
+        onClick={(e) => handleVote("downvote", e)}
+        className={downClassName}
+      >
         <FaArrowDown className={downIconClassName} />
       </Button>
     </>

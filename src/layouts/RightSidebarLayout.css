@@ -48,7 +48,9 @@
 .sidebar-tag-row {
   border-radius: 6px;
   background-color: var(--bg-secondary);
-  transition: background-color 0.2s, transform 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
   cursor: pointer;
   padding: 0.4rem 0.5rem;
   text-decoration: none;
@@ -83,7 +85,9 @@
 .sidebar-question-row {
   border-radius: 6px;
   background-color: var(--bg-secondary);
-  transition: background-color 0.2s, transform 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
   cursor: pointer;
   border-left: 3px solid var(--primary-color);
   padding: 0.4rem 0.5rem;

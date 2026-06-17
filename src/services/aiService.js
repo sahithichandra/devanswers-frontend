@@ -1,5 +1,5 @@
-import axiosInstance from '../api/axiosInstance.js';
-import { AI_API } from '../config/config.js';
+import axiosInstance from "../api/axiosInstance.js";
+import { AI_API } from "../config/config.js";
 
 export const improveQuestion = async ({ title, description, tags }, token) => {
   const res = await axiosInstance.post(

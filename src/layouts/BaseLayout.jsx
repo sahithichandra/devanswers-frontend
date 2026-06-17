@@ -1,7 +1,7 @@
-import Header from '../components/Header/Header.jsx';
-import Footer from '../components/Footer/Footer.jsx';
-import { Container } from 'react-bootstrap';
-import './BaseLayout.css';
+import Header from "../components/Header/Header.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import { Container } from "react-bootstrap";
+import "./BaseLayout.css";
 
 const BaseLayout = ({ children }) => {
   return (
@@ -15,6 +15,6 @@ const BaseLayout = ({ children }) => {
       <Footer />
     </div>
   );
-}
+};
 
 export default BaseLayout;

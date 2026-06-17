@@ -44,6 +44,6 @@ export const USER_API = {
 
 // AI API Endpoints
 export const AI_API = {
-  IMPROVE_QUESTION: '/ai/improve-question',
-  SUMMARIZE_ANSWERS: '/ai/summarize-answers',
+  IMPROVE_QUESTION: "/ai/improve-question",
+  SUMMARIZE_ANSWERS: "/ai/summarize-answers",
 };

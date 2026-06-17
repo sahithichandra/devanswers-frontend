@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { Card, Badge } from 'react-bootstrap';
-import { FaComments, FaUser, FaClock } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { voteQuestion } from '../../reducers/questionSlice';
-import { formatDate } from '../../utils/timeFormat';
-import VoteButtons from '../Shared/VoteButtons';
-import './QuestionCard.css';
+import { Link } from "react-router-dom";
+import { Card, Badge } from "react-bootstrap";
+import { FaComments, FaUser, FaClock } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { voteQuestion } from "../../reducers/questionSlice";
+import { formatDate } from "../../utils/timeFormat";
+import VoteButtons from "../Shared/VoteButtons";
+import "./QuestionCard.css";
 
 const QuestionCard = ({ question }) => {
   const dispatch = useDispatch();
@@ -15,8 +15,10 @@ const QuestionCard = ({ question }) => {
   }
 
   const voteCount = question.voteCount ?? 0;
-  const answerCount = question.answerCount || (Array.isArray(question.answers) ? question.answers.length : 0);
-  const authorName = question.author?.name || 'Anonymous';
+  const answerCount =
+    question.answerCount ||
+    (Array.isArray(question.answers) ? question.answers.length : 0);
+  const authorName = question.author?.name || "Anonymous";
 
   return (
     <Card className="mb-2 qcard">
@@ -51,7 +53,10 @@ const QuestionCard = ({ question }) => {
           {/* Content Column */}
           <div className="flex-grow-1">
             <Card.Title className="mb-2">
-              <Link to={`/question/${question._id}`} className="qcard-title-link">
+              <Link
+                to={`/question/${question._id}`}
+                className="qcard-title-link"
+              >
                 {question.title}
               </Link>
             </Card.Title>
@@ -62,11 +67,16 @@ const QuestionCard = ({ question }) => {
 
             {/* Tags */}
             <div className="mb-2">
-              {question.tags && Array.isArray(question.tags) && question.tags.map((tag, idx) => (
-                <Badge key={tag._id || idx} className="me-2 mb-1 qcard-tag-badge">
-                  {tag.name || tag}
-                </Badge>
-              ))}
+              {question.tags &&
+                Array.isArray(question.tags) &&
+                question.tags.map((tag, idx) => (
+                  <Badge
+                    key={tag._id || idx}
+                    className="me-2 mb-1 qcard-tag-badge"
+                  >
+                    {tag.name || tag}
+                  </Badge>
+                ))}
             </div>
 
             {/* Meta Info */}

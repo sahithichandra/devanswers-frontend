@@ -1,10 +1,10 @@
-import { Card, Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { FaUser, FaClock } from 'react-icons/fa';
-import { voteAnswer } from '../../reducers/questionSlice';
-import { formatDate } from '../../utils/timeFormat';
-import VoteButtons from '../Shared/VoteButtons';
-import './AnswerList.css';
+import { Card, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { FaUser, FaClock } from "react-icons/fa";
+import { voteAnswer } from "../../reducers/questionSlice";
+import { formatDate } from "../../utils/timeFormat";
+import VoteButtons from "../Shared/VoteButtons";
+import "./AnswerList.css";
 
 const AnswerList = ({ answers }) => {
   const dispatch = useDispatch();
@@ -17,18 +17,20 @@ const AnswerList = ({ answers }) => {
         </h4>
         {answers && answers.length > 0 ? (
           answers.map((answer) => (
-            <Card
-              key={answer._id}
-              className="mb-1 alist-answer-card"
-            >
+            <Card key={answer._id} className="mb-1 alist-answer-card">
               <Card.Body className="p-2">
                 <Row>
                   {/* Voting Controls */}
-                  <Col xs="auto" className="d-flex flex-column align-items-center align-self-start pe-3">
+                  <Col
+                    xs="auto"
+                    className="d-flex flex-column align-items-center align-self-start pe-3"
+                  >
                     <VoteButtons
                       voteCount={answer.voteCount}
                       authorId={answer.author?._id}
-                      onVote={(voteType) => dispatch(voteAnswer({ answer, voteType }))}
+                      onVote={(voteType) =>
+                        dispatch(voteAnswer({ answer, voteType }))
+                      }
                       variant="outline-secondary"
                       upClassName="alist-vote-btn alist-vote-btn-up"
                       downClassName="alist-vote-btn alist-vote-btn-down"
@@ -38,20 +40,18 @@ const AnswerList = ({ answers }) => {
                       itemType="answer"
                     />
                   </Col>
-                  
+
                   {/* Answer Content */}
                   <Col>
-                    <div 
-                      className="mb-2 alist-content" 
-                    >
+                    <div className="mb-2 alist-content">
                       {answer.answerText}
                     </div>
-                    <div 
-                      className="mt-2 d-flex align-items-center gap-2 alist-meta" 
-                    >
+                    <div className="mt-2 d-flex align-items-center gap-2 alist-meta">
                       <FaUser className="alist-icon-sm" />
                       <span>Answered by </span>
-                      <strong className="alist-author">{answer.author?.name}</strong>
+                      <strong className="alist-author">
+                        {answer.author?.name}
+                      </strong>
                       {answer.createdAt && (
                         <>
                           <span className="mx-2">•</span>
@@ -67,7 +67,9 @@ const AnswerList = ({ answers }) => {
           ))
         ) : (
           <div className="text-center py-4">
-            <p className="mb-0 alist-meta">No answers yet. Be the first to answer!</p>
+            <p className="mb-0 alist-meta">
+              No answers yet. Be the first to answer!
+            </p>
           </div>
         )}
       </Card.Body>

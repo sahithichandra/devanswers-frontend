@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Card, Badge, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FaFire, FaClock } from 'react-icons/fa';
-import { getAllTags } from '../services/tagService.js';
-import { getAllQuestions } from '../services/questionService.js';
-import { getRelativeTime } from '../utils/timeFormat';
-import './RightSidebarLayout.css';
+import { useEffect, useState } from "react";
+import { Card, Badge, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FaFire, FaClock } from "react-icons/fa";
+import { getAllTags } from "../services/tagService.js";
+import { getAllQuestions } from "../services/questionService.js";
+import { getRelativeTime } from "../utils/timeFormat";
+import "./RightSidebarLayout.css";
 
 const RightSideBarLayout = () => {
   const [hotTags, setHotTags] = useState([]);
@@ -15,7 +15,7 @@ const RightSideBarLayout = () => {
 
   useEffect(() => {
     fetchSidebarData();
-    
+
     // Update every 30 seconds for dynamic updates
     const interval = setInterval(fetchSidebarData, 30000);
     return () => clearInterval(interval);
@@ -26,7 +26,7 @@ const RightSideBarLayout = () => {
       // Fetch tags and questions in parallel
       const [tagsData, questionsData] = await Promise.all([
         getAllTags(),
-        getAllQuestions()
+        getAllQuestions(),
       ]);
 
       // Get top 4 most used tags
@@ -44,8 +44,9 @@ const RightSideBarLayout = () => {
       setNetworkError(false);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching sidebar data:', error);
-      const isNetwork = error?.code === 'ERR_NETWORK' || error?.message === 'Network Error';
+      console.error("Error fetching sidebar data:", error);
+      const isNetwork =
+        error?.code === "ERR_NETWORK" || error?.message === "Network Error";
       setNetworkError(isNetwork);
       setLoading(false);
     }
@@ -86,7 +87,9 @@ const RightSideBarLayout = () => {
                 className="sidebar-tag-row d-flex justify-content-between align-items-center"
               >
                 <Badge className="sidebar-tag-badge">{tag.name}</Badge>
-                <span className="sidebar-tag-count">{tag.questionCount || 0} questions</span>
+                <span className="sidebar-tag-count">
+                  {tag.questionCount || 0} questions
+                </span>
               </Link>
             ))}
           </div>
@@ -109,9 +112,13 @@ const RightSideBarLayout = () => {
               >
                 <div className="sidebar-question-title">{question.title}</div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <span className="sidebar-question-time">{getRelativeTime(question.createdAt)}</span>
+                  <span className="sidebar-question-time">
+                    {getRelativeTime(question.createdAt)}
+                  </span>
                   {question.voteCount > 0 && (
-                    <span className="sidebar-question-votes">+{question.voteCount}</span>
+                    <span className="sidebar-question-votes">
+                      +{question.voteCount}
+                    </span>
                   )}
                 </div>
               </Link>

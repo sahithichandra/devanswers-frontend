@@ -1,19 +1,14 @@
-import Navbar from '../components/Navbar/Navbar.jsx';
-import RightSideBarLayout from './RightSidebarLayout.jsx';
-import { Container, Row, Col } from 'react-bootstrap';
-import './SideBarLayout.css';
+import Navbar from "../components/Navbar/Navbar.jsx";
+import RightSideBarLayout from "./RightSidebarLayout.jsx";
+import { Container, Row, Col } from "react-bootstrap";
+import "./SideBarLayout.css";
 
 const SideBarLayout = ({ children }) => {
   return (
     <Container fluid className="p-0">
       <Row className="g-0">
         {/* Left Sidebar (Navbar) */}
-        <Col
-          xs={12}
-          md={3}
-          lg={2}
-          className="d-none d-md-block sidebar-left"
-        >
+        <Col xs={12} md={3} lg={2} className="d-none d-md-block sidebar-left">
           <Navbar />
         </Col>
         {/* Main Content */}
@@ -21,10 +16,7 @@ const SideBarLayout = ({ children }) => {
           {children}
         </Col>
         {/* Right Sidebar */}
-        <Col
-          lg={2}
-          className="d-none d-lg-block sidebar-right"
-        >
+        <Col lg={2} className="d-none d-lg-block sidebar-right">
           <RightSideBarLayout />
         </Col>
       </Row>

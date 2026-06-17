@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Card, Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { FaPaperPlane } from 'react-icons/fa';
-import { postAnswer } from '../../reducers/questionSlice.js';
-import './AnswerForm.css';
+import { useState } from "react";
+import { Card, Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { FaPaperPlane } from "react-icons/fa";
+import { postAnswer } from "../../reducers/questionSlice.js";
+import "./AnswerForm.css";
 
 const AnswerForm = ({ questionId }) => {
-  const [answerText, setAnswerText] = useState('');
+  const [answerText, setAnswerText] = useState("");
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
@@ -26,7 +26,7 @@ const AnswerForm = ({ questionId }) => {
     }
 
     dispatch(postAnswer({ questionId, answerText }));
-    setAnswerText(''); // Clear form after submission
+    setAnswerText(""); // Clear form after submission
   };
 
   return (
@@ -45,11 +45,7 @@ const AnswerForm = ({ questionId }) => {
             />
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <Button 
-              type="submit"
-              size="lg"
-              className="aform-btn"
-            >
+            <Button type="submit" size="lg" className="aform-btn">
               <FaPaperPlane className="me-2" />
               Post Answer
             </Button>

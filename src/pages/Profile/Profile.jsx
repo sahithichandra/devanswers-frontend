@@ -1,35 +1,44 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { FaUser, FaEnvelope, FaSave, FaEdit } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { USER_API } from '../../config/config.js';
-import './Profile.css';
+import { useState, useEffect, useCallback } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { FaUser, FaEnvelope, FaSave, FaEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { USER_API } from "../../config/config.js";
+import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.user);
   const isAuthenticated = !!userInfo;
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [stats, setStats] = useState({
     totalQuestions: 0,
     totalAnswers: 0,
     totalVotesReceived: 0,
-    reputation: 0
+    reputation: 0,
   });
-  
+
   // Profile form state
   const [formData, setFormData] = useState({
-    name: userInfo?.name || '',
-    email: userInfo?.email || '',
-    bio: '',
-    location: '',
-    website: '',    
+    name: userInfo?.name || "",
+    email: userInfo?.email || "",
+    bio: "",
+    location: "",
+    website: "",
   });
 
   const fetchUserStats = useCallback(async () => {
@@ -39,13 +48,13 @@ const Profile = () => {
         setStats(response.data.data);
       }
     } catch (err) {
-      console.error('Error fetching user stats:', err);
+      console.error("Error fetching user stats:", err);
     }
   }, [userInfo?.userId]);
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate("/login");
     } else if (userInfo?.userId) {
       fetchUserStats();
     }
@@ -54,28 +63,28 @@ const Profile = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
       // TODO: For more real world usecase, Implement API call to update profile
       // await updateUserProfile(formData);
-      
+
       // Simulated success
       setTimeout(() => {
-        setSuccess('Profile updated successfully!');
+        setSuccess("Profile updated successfully!");
         setIsEditing(false);
         setLoading(false);
       }, 1000);
     } catch {
-      setError('Failed to update profile. Please try again.');
+      setError("Failed to update profile. Please try again.");
       setLoading(false);
     }
   };
@@ -94,7 +103,9 @@ const Profile = () => {
               <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
                 <div>
                   <h2 className="profile-title">My Profile</h2>
-                  <p className="text-muted mb-0 profile-subtitle">Manage your account information</p>
+                  <p className="text-muted mb-0 profile-subtitle">
+                    Manage your account information
+                  </p>
                 </div>
                 {!isEditing && (
                   <Button
@@ -120,10 +131,12 @@ const Profile = () => {
                 {/* Profile Picture Section */}
                 <div className="text-center mb-4 pb-4 profile-section-divider">
                   <div className="profile-avatar">
-                    {formData.name ? formData.name.charAt(0).toUpperCase() : 'U'}
+                    {formData.name
+                      ? formData.name.charAt(0).toUpperCase()
+                      : "U"}
                   </div>
                   <h4 className="mt-3 mb-1 profile-username">
-                    {formData.name || userInfo?.name || 'User'}
+                    {formData.name || userInfo?.name || "User"}
                   </h4>
                   <p className="text-muted">Member since January 2026</p>
                 </div>
@@ -143,7 +156,7 @@ const Profile = () => {
                         onChange={handleChange}
                         placeholder="Enter your name"
                         disabled={!isEditing}
-                        className={`profile-input ${isEditing ? 'profile-input-editable' : 'profile-input-readonly'}`}
+                        className={`profile-input ${isEditing ? "profile-input-editable" : "profile-input-readonly"}`}
                       />
                     </Form.Group>
                   </Col>
@@ -161,16 +174,14 @@ const Profile = () => {
                         onChange={handleChange}
                         placeholder="Enter your email"
                         disabled={!isEditing}
-                        className={`profile-input ${isEditing ? 'profile-input-editable' : 'profile-input-readonly'}`}
+                        className={`profile-input ${isEditing ? "profile-input-editable" : "profile-input-readonly"}`}
                       />
                     </Form.Group>
                   </Col>
                 </Row>
 
                 <Form.Group className="mb-4">
-                  <Form.Label className="profile-label">
-                    Bio
-                  </Form.Label>
+                  <Form.Label className="profile-label">Bio</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows={4}
@@ -179,7 +190,7 @@ const Profile = () => {
                     onChange={handleChange}
                     placeholder="Tell us about yourself..."
                     disabled={!isEditing}
-                    className={`profile-input ${isEditing ? 'profile-input-editable' : 'profile-input-readonly'}`}
+                    className={`profile-input ${isEditing ? "profile-input-editable" : "profile-input-readonly"}`}
                   />
                 </Form.Group>
 
@@ -196,16 +207,14 @@ const Profile = () => {
                         onChange={handleChange}
                         placeholder="e.g., San Francisco, CA"
                         disabled={!isEditing}
-                        className={`profile-input ${isEditing ? 'profile-input-editable' : 'profile-input-readonly'}`}
+                        className={`profile-input ${isEditing ? "profile-input-editable" : "profile-input-readonly"}`}
                       />
                     </Form.Group>
                   </Col>
 
                   <Col md={6}>
                     <Form.Group className="mb-4">
-                      <Form.Label className="profile-label">
-                        Website
-                      </Form.Label>
+                      <Form.Label className="profile-label">Website</Form.Label>
                       <Form.Control
                         type="url"
                         name="website"
@@ -213,7 +222,7 @@ const Profile = () => {
                         onChange={handleChange}
                         placeholder="https://yourwebsite.com"
                         disabled={!isEditing}
-                        className={`profile-input ${isEditing ? 'profile-input-editable' : 'profile-input-readonly'}`}
+                        className={`profile-input ${isEditing ? "profile-input-editable" : "profile-input-readonly"}`}
                       />
                     </Form.Group>
                   </Col>
@@ -226,8 +235,8 @@ const Profile = () => {
                       variant="outline-secondary"
                       onClick={() => {
                         setIsEditing(false);
-                        setError('');
-                        setSuccess('');
+                        setError("");
+                        setSuccess("");
                       }}
                       className="profile-cancel-btn"
                     >
@@ -241,7 +250,11 @@ const Profile = () => {
                     >
                       {loading ? (
                         <>
-                          <Spinner animation="border" size="sm" className="me-2" />
+                          <Spinner
+                            animation="border"
+                            size="sm"
+                            className="me-2"
+                          />
                           Saving...
                         </>
                       ) : (
@@ -263,7 +276,9 @@ const Profile = () => {
                     <Col xs={6} md={3} className="mb-3">
                       <Card className="profile-stat-card">
                         <Card.Body className="p-3">
-                          <h3 className="mb-1 profile-stat-num-primary">{stats.totalQuestions}</h3>
+                          <h3 className="mb-1 profile-stat-num-primary">
+                            {stats.totalQuestions}
+                          </h3>
                           <p className="mb-0 profile-stat-label">Questions</p>
                         </Card.Body>
                       </Card>
@@ -271,7 +286,9 @@ const Profile = () => {
                     <Col xs={6} md={3} className="mb-3">
                       <Card className="profile-stat-card">
                         <Card.Body className="p-3">
-                          <h3 className="mb-1 profile-stat-num-success">{stats.totalAnswers}</h3>
+                          <h3 className="mb-1 profile-stat-num-success">
+                            {stats.totalAnswers}
+                          </h3>
                           <p className="mb-0 profile-stat-label">Answers</p>
                         </Card.Body>
                       </Card>
@@ -279,15 +296,21 @@ const Profile = () => {
                     <Col xs={6} md={3} className="mb-3">
                       <Card className="profile-stat-card">
                         <Card.Body className="p-3">
-                          <h3 className="mb-1 profile-stat-num-secondary">{stats.totalVotesReceived}</h3>
-                          <p className="mb-0 profile-stat-label">Votes Received</p>
+                          <h3 className="mb-1 profile-stat-num-secondary">
+                            {stats.totalVotesReceived}
+                          </h3>
+                          <p className="mb-0 profile-stat-label">
+                            Votes Received
+                          </p>
                         </Card.Body>
                       </Card>
                     </Col>
                     <Col xs={6} md={3} className="mb-3">
                       <Card className="profile-stat-card">
                         <Card.Body className="p-3">
-                          <h3 className="mb-1 profile-stat-num-primary">{stats.reputation}</h3>
+                          <h3 className="mb-1 profile-stat-num-primary">
+                            {stats.reputation}
+                          </h3>
                           <p className="mb-0 profile-stat-label">Reputation</p>
                         </Card.Body>
                       </Card>
@@ -295,11 +318,13 @@ const Profile = () => {
                   </Row>
                   <Alert variant="info" className="mt-3">
                     <small>
-                      <strong>💡 How Reputation Works:</strong><br/>
-                      • Post a question: <strong>+5 points</strong><br/>
-                      • Post an answer: <strong>+10 points</strong><br/>
-                      • Receive an upvote: <strong>+10 points</strong><br/>
-                      Your reputation reflects your contribution to the community!
+                      <strong>💡 How Reputation Works:</strong>
+                      <br />• Post a question: <strong>+5 points</strong>
+                      <br />• Post an answer: <strong>+10 points</strong>
+                      <br />• Receive an upvote: <strong>+10 points</strong>
+                      <br />
+                      Your reputation reflects your contribution to the
+                      community!
                     </small>
                   </Alert>
                 </div>

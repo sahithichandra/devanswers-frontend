@@ -1,17 +1,17 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import Footer from '../../../src/components/Footer/Footer';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import Footer from "../../../src/components/Footer/Footer";
 
-describe('Footer Component', () => {
-  it('renders the footer text', () => {
+describe("Footer Component", () => {
+  it("renders the footer text", () => {
     render(<Footer />);
     expect(screen.getByText(/© 2026 DevAnswers/i)).toBeInTheDocument();
   });
 
-  it('renders as a footer element', () => {
+  it("renders as a footer element", () => {
     const { container } = render(<Footer />);
-    const footer = container.querySelector('footer');
+    const footer = container.querySelector("footer");
     expect(footer).toBeInTheDocument();
   });
 });

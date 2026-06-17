@@ -1,16 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Spinner, Badge, InputGroup, FormControl } from 'react-bootstrap';
-import { FaTags, FaSearch, FaQuestionCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { getAllTags } from '../../services/tagService.js';
-import './Tags.css';
+import { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Spinner,
+  Badge,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
+import { FaTags, FaSearch, FaQuestionCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { getAllTags } from "../../services/tagService.js";
+import "./Tags.css";
 
 const Tags = () => {
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchTags();
@@ -18,8 +27,8 @@ const Tags = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      const filtered = tags.filter(tag =>
-        tag.name.toLowerCase().includes(searchQuery.toLowerCase())
+      const filtered = tags.filter((tag) =>
+        tag.name.toLowerCase().includes(searchQuery.toLowerCase()),
       );
       setFilteredTags(filtered);
     } else {
@@ -44,7 +53,11 @@ const Tags = () => {
     return (
       <Container className="d-flex justify-content-center align-items-center tags-loading-container">
         <div className="text-center">
-          <Spinner animation="border" variant="primary" className="tags-loading-spinner" />
+          <Spinner
+            animation="border"
+            variant="primary"
+            className="tags-loading-spinner"
+          />
           <p className="mt-3 text-muted">Loading tags...</p>
         </div>
       </Container>
@@ -74,11 +87,12 @@ const Tags = () => {
                 <div>
                   <h2 className="mb-2 tags-title">Tags</h2>
                   <p className="mb-0 tags-desc">
-                    A tag is a keyword or label that categorizes your question with other, similar questions.
+                    A tag is a keyword or label that categorizes your question
+                    with other, similar questions.
                   </p>
                 </div>
               </div>
-              
+
               {/* Search Bar */}
               <InputGroup>
                 <InputGroup.Text className="tags-search-prepend">
@@ -96,35 +110,38 @@ const Tags = () => {
 
           {/* Tags Grid */}
           <div className="mb-3 tags-count">
-            <strong>{filteredTags.length}</strong> {filteredTags.length === 1 ? 'tag' : 'tags'}
+            <strong>{filteredTags.length}</strong>{" "}
+            {filteredTags.length === 1 ? "tag" : "tags"}
           </div>
 
           {filteredTags.length > 0 ? (
             <Row>
               {filteredTags.map((tag) => (
-                <Col key={tag._id} xs={12} sm={6} lg={4} xl={3} className="mb-4">
-                  <Link 
-                    to={`/?tag=${tag._id}`}
-                    className="tag-card-link"
-                  >
+                <Col
+                  key={tag._id}
+                  xs={12}
+                  sm={6}
+                  lg={4}
+                  xl={3}
+                  className="mb-4"
+                >
+                  <Link to={`/?tag=${tag._id}`} className="tag-card-link">
                     <Card className="tag-card">
                       <Card.Body className="p-3">
-                        <Badge className="tag-card-badge">
-                          {tag.name}
-                        </Badge>
-                        
+                        <Badge className="tag-card-badge">{tag.name}</Badge>
+
                         <div className="d-flex align-items-center gap-2 text-muted tag-card-meta">
                           <FaQuestionCircle className="tag-card-question-icon" />
                           <span>
-                            <strong className="tag-card-question-count">{tag.questionCount}</strong>{' '}
-                            {tag.questionCount === 1 ? 'question' : 'questions'}
+                            <strong className="tag-card-question-count">
+                              {tag.questionCount}
+                            </strong>{" "}
+                            {tag.questionCount === 1 ? "question" : "questions"}
                           </span>
                         </div>
 
                         <div className="mt-3">
-                          <span className="tag-card-cta">
-                            View questions →
-                          </span>
+                          <span className="tag-card-cta">View questions →</span>
                         </div>
                       </Card.Body>
                     </Card>

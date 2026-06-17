@@ -1,16 +1,16 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
-import Profile from '../../../src/pages/Profile/Profile';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import Profile from "../../../src/pages/Profile/Profile";
 
 const mockNavigate = vi.fn();
 
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
   return {
     ...actual,
     useNavigate: () => mockNavigate,
@@ -18,7 +18,7 @@ vi.mock('react-router-dom', async () => {
 });
 
 const createMockStore = ({
-  userInfo = { userId: 'u1', name: 'TestUser', token: 'tok' },
+  userInfo = { userId: "u1", name: "TestUser", token: "tok" },
 } = {}) => {
   return configureStore({
     reducer: {
@@ -34,38 +34,38 @@ const renderProfile = (storeOptions = {}) => {
       <BrowserRouter>
         <Profile />
       </BrowserRouter>
-    </Provider>
+    </Provider>,
   );
 };
 
-describe('Profile Page', () => {
+describe("Profile Page", () => {
   beforeEach(() => {
     mockNavigate.mockClear();
   });
 
-  it('renders the profile heading when authenticated', () => {
+  it("renders the profile heading when authenticated", () => {
     renderProfile();
-    expect(screen.getByText('My Profile')).toBeInTheDocument();
+    expect(screen.getByText("My Profile")).toBeInTheDocument();
   });
 
-  it('shows Edit Profile button when not in edit mode', () => {
+  it("shows Edit Profile button when not in edit mode", () => {
     renderProfile();
     expect(screen.getByText(/edit profile/i)).toBeInTheDocument();
   });
 
-  it('redirects to /login when not authenticated', () => {
+  it("redirects to /login when not authenticated", () => {
     renderProfile({ userInfo: null });
-    expect(mockNavigate).toHaveBeenCalledWith('/login');
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
 
-  it('shows activity stats section when authenticated', () => {
+  it("shows activity stats section when authenticated", () => {
     renderProfile();
-    expect(screen.getByText('Activity Stats')).toBeInTheDocument();
-    expect(screen.getByText('Questions')).toBeInTheDocument();
-    expect(screen.getByText('Answers')).toBeInTheDocument();
+    expect(screen.getByText("Activity Stats")).toBeInTheDocument();
+    expect(screen.getByText("Questions")).toBeInTheDocument();
+    expect(screen.getByText("Answers")).toBeInTheDocument();
   });
 
-  it('enters edit mode when Edit Profile button is clicked', async () => {
+  it("enters edit mode when Edit Profile button is clicked", async () => {
     renderProfile();
     await userEvent.click(screen.getByText(/edit profile/i));
 
@@ -73,7 +73,7 @@ describe('Profile Page', () => {
     expect(screen.getByText(/cancel/i)).toBeInTheDocument();
   });
 
-  it('exits edit mode when Cancel button is clicked', async () => {
+  it("exits edit mode when Cancel button is clicked", async () => {
     renderProfile();
     await userEvent.click(screen.getByText(/edit profile/i));
     await userEvent.click(screen.getByText(/cancel/i));
@@ -81,7 +81,7 @@ describe('Profile Page', () => {
     expect(screen.getByText(/edit profile/i)).toBeInTheDocument();
   });
 
-  it('shows form inputs in edit mode', async () => {
+  it("shows form inputs in edit mode", async () => {
     const user = userEvent.setup();
     renderProfile();
 

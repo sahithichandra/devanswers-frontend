@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col, Spinner, Button, Badge } from "react-bootstrap";
-import { FaPlus, FaTimes } from 'react-icons/fa';
-import './Home.css';
+import { FaPlus, FaTimes } from "react-icons/fa";
+import "./Home.css";
 
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchQuestions } from '../../reducers/questionSlice.js';
-import { getQuestionsByTag } from '../../services/tagService.js';
-import QuestionList from '../../components/Question/QuestionList.jsx';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchQuestions } from "../../reducers/questionSlice.js";
+import { getQuestionsByTag } from "../../services/tagService.js";
+import QuestionList from "../../components/Question/QuestionList.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Home = () => {
   const [taggedQuestions, setTaggedQuestions] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
   const [tagLoading, setTagLoading] = useState(false);
-  const tagId = searchParams.get('tag');
+  const tagId = searchParams.get("tag");
 
   useEffect(() => {
     if (tagId) {
@@ -40,11 +40,12 @@ const Home = () => {
       const data = await getQuestionsByTag(tagId);
       setTaggedQuestions(data);
       if (data.length > 0 && data[0].tags) {
-        const tag = data[0].tags.find((t) => t._id === tagId) || data[0].tags[0];
+        const tag =
+          data[0].tags.find((t) => t._id === tagId) || data[0].tags[0];
         if (tag) setSelectedTag(tag);
       }
     } catch (err) {
-      console.error('Error fetching tagged questions:', err);
+      console.error("Error fetching tagged questions:", err);
       setTaggedQuestions([]);
     } finally {
       setTagLoading(false);
@@ -53,9 +54,9 @@ const Home = () => {
 
   const handleAskQuestion = () => {
     if (isAuthenticated) {
-      navigate('/ask');
+      navigate("/ask");
     } else {
-      alert('Please log in to ask a question.');
+      alert("Please log in to ask a question.");
     }
   };
 
@@ -63,13 +64,18 @@ const Home = () => {
     setSearchParams({});
   };
 
-  const questionsToDisplay = taggedQuestions !== null ? taggedQuestions : questions;
+  const questionsToDisplay =
+    taggedQuestions !== null ? taggedQuestions : questions;
 
   if (loading || tagLoading) {
     return (
       <Container className="d-flex justify-content-center align-items-center home-loading-container">
         <div className="text-center">
-          <Spinner animation="border" variant="primary" className="home-loading-spinner" />
+          <Spinner
+            animation="border"
+            variant="primary"
+            className="home-loading-spinner"
+          />
           <p className="mt-3 text-muted">Loading questions...</p>
         </div>
       </Container>
@@ -93,7 +99,9 @@ const Home = () => {
           {/* Header Section */}
           <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-3 gap-2">
             <h2 className="mb-0 home-title">
-              {selectedTag ? `Questions tagged [${selectedTag.name}]` : 'All Questions'}
+              {selectedTag
+                ? `Questions tagged [${selectedTag.name}]`
+                : "All Questions"}
             </h2>
             <Button
               variant="primary"
@@ -109,10 +117,7 @@ const Home = () => {
           {/* Tag Filter Badge */}
           {selectedTag && (
             <div className="mb-3">
-              <Badge
-                className="home-tag-badge"
-                onClick={handleClearTagFilter}
-              >
+              <Badge className="home-tag-badge" onClick={handleClearTagFilter}>
                 {selectedTag.name}
                 <FaTimes className="ms-2 home-tag-clear-icon" />
               </Badge>

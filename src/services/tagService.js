@@ -1,5 +1,5 @@
-import axiosInstance from '../api/axiosInstance.js';
-import { TAG_API } from '../config/config.js';
+import axiosInstance from "../api/axiosInstance.js";
+import { TAG_API } from "../config/config.js";
 
 export const getAllTags = async () => {
   const res = await axiosInstance.get(TAG_API.GET_ALL);

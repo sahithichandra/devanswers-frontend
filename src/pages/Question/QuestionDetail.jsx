@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Spinner, Alert, Button } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { FaRobot } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Container, Row, Col, Spinner, Alert, Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { FaRobot } from "react-icons/fa";
 
-import { fetchQuestionById } from '../../reducers/questionSlice.js';
-import { summarizeAnswers } from '../../services/aiService.js';
-import QuestionContent from '../../components/Question/QuestionContent.jsx';
-import AnswerList from '../../components/Answer/AnswerList.jsx';
-import AnswerForm from '../../components/Answer/AnswerForm.jsx';
-import './QuestionDetail.css';
+import { fetchQuestionById } from "../../reducers/questionSlice.js";
+import { summarizeAnswers } from "../../services/aiService.js";
+import QuestionContent from "../../components/Question/QuestionContent.jsx";
+import AnswerList from "../../components/Answer/AnswerList.jsx";
+import AnswerForm from "../../components/Answer/AnswerForm.jsx";
+import "./QuestionDetail.css";
 
 const QuestionDetail = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const { currentQuestion, loading, error } = useSelector((state) => state.question);
+  const { currentQuestion, loading, error } = useSelector(
+    (state) => state.question,
+  );
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const [summary, setSummary] = useState(null);
@@ -66,8 +68,8 @@ const QuestionDetail = () => {
       setSummary(result.summary);
       setShowSummary(true);
     } catch (err) {
-      console.error('Error summarizing answers:', err);
-      alert('Failed to summarize answers. Please try again.');
+      console.error("Error summarizing answers:", err);
+      alert("Failed to summarize answers. Please try again.");
     } finally {
       setIsSummarizing(false);
     }
@@ -81,9 +83,7 @@ const QuestionDetail = () => {
     <Container className="qd-container">
       <Row className="justify-content-center">
         <Col xs={12} lg={10} xl={8}>
-          <QuestionContent
-            question={currentQuestion}
-          />
+          <QuestionContent question={currentQuestion} />
 
           {canSummarize && !showSummary && (
             <div className="mb-3 text-end">
@@ -94,28 +94,37 @@ const QuestionDetail = () => {
                 disabled={isSummarizing}
               >
                 {isSummarizing ? (
-                  <><Spinner as="span" size="sm" className="me-2" />Summarizing...</>
+                  <>
+                    <Spinner as="span" size="sm" className="me-2" />
+                    Summarizing...
+                  </>
                 ) : (
-                  <><FaRobot className="me-2" />Summarize Answers</>
+                  <>
+                    <FaRobot className="me-2" />
+                    Summarize Answers
+                  </>
                 )}
               </Button>
             </div>
           )}
 
           {showSummary && summary && (
-            <Alert variant="secondary" className="mb-3" onClose={handleDismissSummary} dismissible>
-              <Alert.Heading as="h6" className="mb-1">AI Summary</Alert.Heading>
+            <Alert
+              variant="secondary"
+              className="mb-3"
+              onClose={handleDismissSummary}
+              dismissible
+            >
+              <Alert.Heading as="h6" className="mb-1">
+                AI Summary
+              </Alert.Heading>
               <p className="mb-0">{summary}</p>
             </Alert>
           )}
 
-          <AnswerList
-            answers={currentQuestion.answers}
-          />
+          <AnswerList answers={currentQuestion.answers} />
 
-          <AnswerForm
-            questionId={id}
-          />
+          <AnswerForm questionId={id} />
         </Col>
       </Row>
     </Container>

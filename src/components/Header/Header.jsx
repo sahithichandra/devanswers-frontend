@@ -1,12 +1,19 @@
-import { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { FaStackOverflow, FaUser, FaSignOutAlt, FaMoon, FaSun, FaBars } from 'react-icons/fa';
-import { logoutUser } from '../../reducers/userSlice.js';
-import { toggleTheme } from '../../reducers/themeSlice.js';
-import Navbar from '../Navbar/Navbar.jsx';
-import './Header.css';
+import { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  FaStackOverflow,
+  FaUser,
+  FaSignOutAlt,
+  FaMoon,
+  FaSun,
+  FaBars,
+} from "react-icons/fa";
+import { logoutUser } from "../../reducers/userSlice.js";
+import { toggleTheme } from "../../reducers/themeSlice.js";
+import Navbar from "../Navbar/Navbar.jsx";
+import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,37 +26,37 @@ const Header = () => {
   const handleCloseMobileMenu = () => setShowMobileMenu(false);
 
   const handleLogin = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   const handleSignup = () => {
-    navigate('/register');
-  }
+    navigate("/register");
+  };
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <header className="header">
       <div className="header-left">
-        <Button 
-          variant="link" 
+        <Button
+          variant="link"
           onClick={() => setShowMobileMenu(!showMobileMenu)}
           className="d-md-none text-white p-0 me-2 header-hamburger"
         >
           <FaBars />
         </Button>
-        <h1 onClick={() => navigate('/')} className="header-logo">
+        <h1 onClick={() => navigate("/")} className="header-logo">
           <FaStackOverflow className="logo-icon" />
           DevAnswers
         </h1>
       </div>
-      
+
       <div className="header-right">
-        <Button 
-          variant="outline-light" 
+        <Button
+          variant="outline-light"
           onClick={() => dispatch(toggleTheme())}
           className="me-2 header-theme-btn"
         >
@@ -57,13 +64,13 @@ const Header = () => {
         </Button>
         {isAuthenticated ? (
           <>
-            <Button 
-              variant="link" 
-              onClick={() => navigate('/profile')}
+            <Button
+              variant="link"
+              onClick={() => navigate("/profile")}
               className="text-white me-3 d-none d-md-inline header-profile-btn"
             >
               <FaUser className="me-2" />
-              {userInfo?.name || 'User'}
+              {userInfo?.name || "User"}
             </Button>
             <Button variant="light" onClick={handleLogout}>
               <FaSignOutAlt className="me-2 d-none d-sm-inline" />
@@ -88,14 +95,21 @@ const Header = () => {
       {/* Mobile Navigation Menu */}
       {showMobileMenu && (
         <>
-          <div className="mobile-drawer-backdrop" onClick={handleCloseMobileMenu} />
+          <div
+            className="mobile-drawer-backdrop"
+            onClick={handleCloseMobileMenu}
+          />
           <div className="header-mobile-menu header-mobile-menu--open">
             <div className="header-mobile-menu-header">
               <span className="header-mobile-menu-title">
                 <FaStackOverflow className="me-2 header-mobile-menu-icon" />
                 DevAnswers
               </span>
-              <Button variant="link" onClick={handleCloseMobileMenu} className="header-mobile-menu-close">
+              <Button
+                variant="link"
+                onClick={handleCloseMobileMenu}
+                className="header-mobile-menu-close"
+              >
                 ✕
               </Button>
             </div>
