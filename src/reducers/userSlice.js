@@ -2,8 +2,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { login, register } from '../services/authService.js';
 
+const getStoredUserInfo = () => {
+  try {
+    return JSON.parse(localStorage.getItem('userInfo')) || null;
+  } catch {
+    return null;
+  }
+};
+
 const initialState = {
-  userInfo: JSON.parse(localStorage.getItem('userInfo')) || null,
+  userInfo: getStoredUserInfo(),
   login: {
     status: 'idle', // 'idle' | 'pending' | 'fulfilled' | 'rejected'
     error: null,
